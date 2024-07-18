@@ -1,0 +1,6 @@
+{
+    "cmake.sourceDirectory": "/media/franck/Part D/Professionnel/Projet Flutter/myportfolio/linux",
+    "DockerRun.DisableDockerrc": true,
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "automatic"
+}
