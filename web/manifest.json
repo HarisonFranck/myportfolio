@@ -1,11 +1,11 @@
 {
-    "name": "myportfolio",
-    "short_name": "myportfolio",
+    "name": "Mauriat's Portfolio",
+    "short_name": "Développeur Flutter",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Découvrez le portfolio de Franck Mauriat, développeur expert en développement mobile et web avec Flutter, intégration d'API, et design UI/UX. Transformez vos idées en réalité avec des solutions innovantes et de haute qualité.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

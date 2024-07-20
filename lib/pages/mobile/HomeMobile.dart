@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:myportfolio/utils/Utilities.dart';
+import 'package:myportfolio/utils/WidgetData.dart';
 
 class HomeMobile extends StatefulWidget {
   @override
@@ -15,152 +16,6 @@ class HomeMobile extends StatefulWidget {
 }
 
 class HomeMobileState extends State<HomeMobile> {
-  final imagelist = [
-    Container(
-      height: 600,
-      width: 300,
-      decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
-          boxShadow: const [
-            BoxShadow(
-                blurStyle: BlurStyle.solid, blurRadius: 8, color: Colors.grey)
-          ],
-          borderRadius: BorderRadius.circular(6)),
-      child: Column(children: [
-        SizedBox(
-          height: 250,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Image.asset(
-                'assets/images/P1.png',
-                fit: BoxFit.cover,
-                width: 60,
-              ),
-              Image.asset(
-                'assets/images/P2.png',
-                fit: BoxFit.cover,
-                width: 60,
-              ),
-              Image.asset(
-                'assets/images/P3.png',
-                fit: BoxFit.cover,
-                width: 60,
-              ),
-              Image.asset(
-                'assets/images/P4.png',
-                fit: BoxFit.cover,
-                width: 60,
-              ),
-            ],
-          ),
-        ),
-        const Spacer(),
-        const Center(
-          child: Text(
-            'Med Scheduler',
-            //'Application mobile de prise de rendez-vous',
-            softWrap: true,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 22, fontWeight: FontWeight.w600, letterSpacing: 3),
-          ),
-        ),
-        const Spacer(),
-      ]),
-    ),
-    Container(
-        height: 600,
-        width: 300,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: const [
-              BoxShadow(
-                  blurStyle: BlurStyle.solid, blurRadius: 8, color: Colors.grey)
-            ],
-            borderRadius: BorderRadius.circular(6)),
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/images/Swach.png',
-              fit: BoxFit.fitWidth,
-            ),
-            const Spacer(),
-            const Align(
-              alignment: Alignment.center,
-              child: Text('Maquette avec Adobe XD',
-                  textAlign: TextAlign.center,
-                  softWrap: true,
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 3)),
-            ),
-            const Spacer()
-          ],
-        )),
-    Container(
-        height: 600,
-        width: 300,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: const [
-              BoxShadow(
-                  blurStyle: BlurStyle.solid, blurRadius: 8, color: Colors.grey)
-            ],
-            borderRadius: BorderRadius.circular(6)),
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/images/meds.png',
-              fit: BoxFit.fitWidth,
-            ),
-            const Spacer(),
-            const Align(
-              alignment: Alignment.center,
-              child: Text('Maquette de Med Scheduler',
-                  textAlign: TextAlign.center,
-                  softWrap: true,
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 3)),
-            ),
-            const Spacer()
-          ],
-        )),
-    Container(
-        height: 600,
-        width: 300,
-        decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 255, 255, 255),
-            boxShadow: const [
-              BoxShadow(
-                  blurStyle: BlurStyle.solid, blurRadius: 8, color: Colors.grey)
-            ],
-            borderRadius: BorderRadius.circular(6)),
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/images/Responsive.png',
-              fit: BoxFit.fitWidth,
-            ),
-            const Spacer(),
-            const Align(
-              alignment: Alignment.center,
-              child: Text('Application Web Responsive avec Flutter',
-                  textAlign: TextAlign.center,
-                  softWrap: true,
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 3)),
-            ),
-            const Spacer()
-          ],
-        )),
-  ];
-
   bool isBright = true;
 
   int isSelected = 0;
@@ -229,15 +84,20 @@ class HomeMobileState extends State<HomeMobile> {
                   isBright = !isBright;
                 });
               },
-              icon: const Icon(
-                Icons.brightness_6_rounded,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ))
+              icon: isBright
+                  ? const Icon(
+                      Icons.nightlight_rounded,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    )
+                  : const Icon(
+                      Icons.brightness_6_rounded,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ))
         ],
       ),
       body: ListView(controller: scrollController, children: [
         Container(
-            height: 900,
+            height: 950,
             decoration: const BoxDecoration(),
             child: Column(
               children: [
@@ -246,15 +106,16 @@ class HomeMobileState extends State<HomeMobile> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 30, right: 30),
-                  child: Text(
-                    'Bonjour, bienvenue sur mon portfolio.',
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontSize: 19,
-                        letterSpacing: 2,
-                        color: isBright ? Colors.black : Colors.white),
+                  child: Container(
+                    child: Text(
+                      'Bonjour, bienvenue sur mon portfolio.',
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 19,
+                          letterSpacing: 2,
+                          color: isBright ? Colors.black : Colors.white),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -332,10 +193,12 @@ class HomeMobileState extends State<HomeMobile> {
                         child: Container(
                       width: height / 2,
                       padding: const EdgeInsets.all(20),
-                      child: const Center(
+                      child: Center(
                         child: Text(
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: isBright ? Colors.black : Colors.white),
                             'Veuillez scanner ce code pour vérifier l\'authenticité de mon diplôme :'),
                       ),
                     ))),
@@ -370,7 +233,7 @@ class HomeMobileState extends State<HomeMobile> {
                   ),
                   onPressed: () async {
                     window.open(
-                        'https://drive.google.com/file/d/1fmkNhqlAMUPEb52iyZPKXa93aUwRi-AL/view?usp=sharing',
+                        'https://drive.google.com/file/d/1vTBPew_CeugyIWHj_N7N1uVj-nimVmXK/view?usp=sharing',
                         '_blank');
                     window.console;
                   },

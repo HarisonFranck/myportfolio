@@ -1,9 +1,10 @@
 import 'dart:html';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:glassmorphism/glassmorphism.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:intl/intl.dart';
 import 'package:myportfolio/utils/Utilities.dart';
@@ -15,7 +16,7 @@ class Home extends StatefulWidget {
   }
 }
 
-class HomeState extends State<Home> {
+class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   int isSelected = 0;
 
   ScrollController scrollController = ScrollController();
@@ -32,6 +33,9 @@ class HomeState extends State<Home> {
   bool _isHoveredWatch = false;
   bool _isHoveredMedDesign = false;
   bool _isHoveredResp = false;
+
+  AnimationController? _controller;
+  Animation<Color?>? _colorAnimation;
 
   Map<String, String>? localizedStrings;
 
@@ -50,12 +54,22 @@ class HomeState extends State<Home> {
   void initState() {
     super.initState();
     scrollController.addListener(_updateCurrentIndex);
+    _controller = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _colorAnimation = ColorTween(
+      begin: Colors.blue,
+      end: const Color.fromARGB(255, 44, 91, 129),
+    ).animate(_controller!);
   }
 
   @override
   void dispose() {
     scrollController.removeListener(_updateCurrentIndex);
     scrollController.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -98,12 +112,12 @@ class HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: isBright
           ? const Color.fromARGB(255, 235, 235, 235)
-          : Color.fromARGB(255, 65, 65, 65),
+          : const Color.fromARGB(255, 65, 65, 65),
       //backgroundColor: const Color.fromARGB(255, 54, 54, s54),
       appBar: AppBar(
         backgroundColor: isBright
             ? const Color.fromARGB(255, 27, 78, 102)
-            : Color.fromARGB(255, 44, 44, 44),
+            : const Color.fromARGB(255, 44, 44, 44),
         actions: [
           Padding(
               padding: const EdgeInsets.only(right: 20),
@@ -236,10 +250,15 @@ class HomeState extends State<Home> {
           Padding(
               padding: const EdgeInsets.only(right: 20),
               child: IconButton(
-                icon: Icon(
-                  Icons.brightness_5_rounded,
-                  color: Colors.white,
-                ),
+                icon: isBright
+                    ? const Icon(
+                        Icons.nightlight_rounded,
+                        color: Colors.white,
+                      )
+                    : const Icon(
+                        Icons.brightness_5_rounded,
+                        color: Colors.white,
+                      ),
                 onPressed: () {
                   setState(() {
                     isBright = !isBright;
@@ -253,7 +272,7 @@ class HomeState extends State<Home> {
         children: [
           Container(
               //color: const Color.fromARGB(255, 218, 238, 255),
-              height: 800, // Remplacez cela par votre propre contenu
+              height: 990, // Remplacez cela par votre propre contenu
 
               child: Padding(
                 padding: EdgeInsets.only(top: (width < 1350) ? 10 : 130),
@@ -394,7 +413,7 @@ class HomeState extends State<Home> {
                             ),
                             onPressed: () async {
                               window.open(
-                                  'https://drive.google.com/file/d/1fmkNhqlAMUPEb52iyZPKXa93aUwRi-AL/view?usp=sharing',
+                                  'https://drive.google.com/file/d/1vTBPew_CeugyIWHj_N7N1uVj-nimVmXK/view?usp=sharing',
                                   '_blank');
                               window.console;
                             },
@@ -408,8 +427,53 @@ class HomeState extends State<Home> {
                             ),
                           ),
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 80),
+                              //color: Colors.yellow,
+
+                              child: AnimatedBuilder(
+                                animation: _controller!,
+                                builder: (context, child) {
+                                  return Container(
+                                    padding: const EdgeInsets.all(20),
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: _colorAnimation!.value!,
+                                          width: 4),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '"L\'innovation distingue un leader d\'un suiveur." - Steve Jobs',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: isBright
+                                                ? Colors.black
+                                                : Colors.white),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 7.2,
+                            )
+                          ],
+                        ),
                         const Spacer(),
                       ]),
+                    ),
+                    Container(
+                      child: VerticalDivider(
+                        color: isBright
+                            ? const Color.fromARGB(255, 83, 83, 83)
+                            : Colors.white,
+                      ),
                     ),
                     if (width > 790) ...[
                       const Spacer(),
@@ -418,83 +482,91 @@ class HomeState extends State<Home> {
                       Padding(
                         padding: EdgeInsets.only(
                             top: 0, left: 20, right: (width < 965) ? 10 : 100),
-                        child: Column(children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Container(
-                              width: (width < 650)
-                                  ? 150
-                                  : (width < 785)
-                                      ? 200
-                                      : 300,
-                              height: (width < 650)
-                                  ? 150
-                                  : (width < 785)
-                                      ? 200
-                                      : 300,
-                              decoration: BoxDecoration(
-                                  image: const DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/profile.png'),
-                                      fit: BoxFit.cover),
-                                  borderRadius:
-                                      BorderRadius.circular((width < 650)
-                                          ? 150
-                                          : (width < 785)
-                                              ? 200
-                                              : 300),
-                                  color: Colors.teal),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 40),
-                            child: Center(
-                                child: Container(
-                              padding: const EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  border:
-                                      Border.all(width: 1, color: Colors.teal)),
-                              child: Text(
-                                'Développeur Flutter',
-                                style: TextStyle(
-                                    letterSpacing: 4,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 19,
-                                    color: isBright
-                                        ? Colors.black.withOpacity(0.7)
-                                        : Colors.white),
+                        child: Container(
+                          decoration: const BoxDecoration(),
+                          child: Column(children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: Container(
+                                width: (width < 650)
+                                    ? 150
+                                    : (width < 785)
+                                        ? 200
+                                        : 300,
+                                height: (width < 650)
+                                    ? 150
+                                    : (width < 785)
+                                        ? 200
+                                        : 300,
+                                decoration: BoxDecoration(
+                                    image: const DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/profile.png'),
+                                        fit: BoxFit.cover),
+                                    borderRadius:
+                                        BorderRadius.circular((width < 650)
+                                            ? 150
+                                            : (width < 785)
+                                                ? 200
+                                                : 300),
+                                    color: Colors.teal),
                               ),
-                            )),
-                          ),
-                          Padding(
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 40),
+                              child: Center(
+                                  child: Container(
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6),
+                                    border: Border.all(
+                                        width: 1, color: Colors.teal)),
+                                child: Text(
+                                  'Développeur Flutter',
+                                  style: TextStyle(
+                                      letterSpacing: 4,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 19,
+                                      color: isBright
+                                          ? Colors.black.withOpacity(0.7)
+                                          : Colors.white),
+                                ),
+                              )),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: Center(
+                                    child: Container(
+                                  width: width / 7,
+                                  padding: const EdgeInsets.all(20),
+                                  child: Center(
+                                    child: Text(
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: isBright
+                                                ? Colors.black
+                                                : Colors.white),
+                                        'Veuillez scanner ce code pour vérifier l\'authenticité de mon diplôme :'),
+                                  ),
+                                ))),
+                            Padding(
                               padding: const EdgeInsets.only(top: 5),
                               child: Center(
                                   child: Container(
-                                width: width / 7,
-                                padding: const EdgeInsets.all(20),
-                                child: const Center(
-                                  child: Text(
-                                      style: TextStyle(fontSize: 20),
-                                      'Veuillez scanner ce code pour vérifier l\'authenticité de mon diplôme :'),
-                                ),
-                              ))),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Center(
-                                child: Container(
-                                    width: width / 7,
-                                    padding: const EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(6),
-                                        border: Border.all(
-                                            width: 1, color: Colors.teal)),
-                                    child: Image.asset(
-                                      'assets/images/qr_Franck.png',
-                                      fit: BoxFit.cover,
-                                    ))),
-                          ),
-                        ]),
+                                      width: width / 7,
+                                      padding: const EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                          border: Border.all(
+                                              width: 1, color: Colors.teal)),
+                                      child: Image.asset(
+                                        'assets/images/qr_Franck.png',
+                                        fit: BoxFit.cover,
+                                      ))),
+                            ),
+                          ]),
+                        ),
                       ),
                     ],
                     SizedBox(
@@ -517,13 +589,11 @@ class HomeState extends State<Home> {
             height: 800, // Remplacez cela par votre propre contenu
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    width: 2.5,
-                    color: isBright ? Colors.transparent : Colors.white)),
+                border: Border.all(width: 2.5, color: Colors.transparent)),
             child: Center(
                 child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 130,
                 ),
                 Padding(
@@ -547,7 +617,7 @@ class HomeState extends State<Home> {
                     style: TextStyle(
                         fontSize: 18,
                         color: isBright
-                            ? Color.fromARGB(255, 133, 133, 133)
+                            ? const Color.fromARGB(255, 133, 133, 133)
                             : Colors.white,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 2),
@@ -954,14 +1024,14 @@ class HomeState extends State<Home> {
                 ),
                 const Spacer(),
                 Padding(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     'Mais mon expertise réside dans la transformation de vos idées en une excellente expérience mobile à l\'aide de Flutter, tout en assurant une synchronisation fluide des données via les API SQLite, Firebase ou REST.',
                     softWrap: true,
                     style: TextStyle(
                         letterSpacing: 2,
                         color: isBright
-                            ? Color.fromARGB(255, 133, 133, 133)
+                            ? const Color.fromARGB(255, 133, 133, 133)
                             : Colors.white,
                         fontSize: 18),
                   ),
@@ -989,7 +1059,7 @@ class HomeState extends State<Home> {
                     //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 10, bottom: 50),
+                        padding: const EdgeInsets.only(top: 10, bottom: 50),
                         child: Center(
                           child: Text(
                             'Projets',
@@ -1005,7 +1075,7 @@ class HomeState extends State<Home> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 10, bottom: 70),
+                        padding: const EdgeInsets.only(top: 10, bottom: 70),
                         child: Center(
                           child: Text(
                             'Voici quelques-uns des projets sur lesquels j\'ai travaillé, m\'offrant une expérience significative et enrichissante.',
@@ -1014,7 +1084,7 @@ class HomeState extends State<Home> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                                 color: isBright
-                                    ? Color.fromARGB(255, 133, 133, 133)
+                                    ? const Color.fromARGB(255, 133, 133, 133)
                                     : Colors.white),
                           ),
                         ),
@@ -1099,13 +1169,14 @@ class HomeState extends State<Home> {
                                                         .size
                                                         .width /
                                                     3.6,
-                                                child: const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      left: 20, right: 20),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 20, right: 20),
                                                   child: Column(
                                                     children: [
-                                                      Spacer(),
-                                                      Text(
+                                                      const Spacer(),
+                                                      const Text(
                                                         'Med Scheduler',
                                                         //'Application mobile de prise de rendez-vous',
                                                         softWrap: true,
@@ -1133,10 +1204,10 @@ class HomeState extends State<Home> {
                                                                 FontWeight.bold,
                                                             letterSpacing: 3),
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 30,
                                                       ),
-                                                      Text(
+                                                      const Text(
                                                         'Application mobile de prise de rendez-vous',
                                                         softWrap: true,
                                                         textAlign:
@@ -1163,7 +1234,41 @@ class HomeState extends State<Home> {
                                                                 FontWeight.w600,
                                                             letterSpacing: 3),
                                                       ),
-                                                      Spacer(),
+                                                      const Spacer(),
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 10,
+                                                                right: 10,
+                                                                top: 10),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: const BorderRadius
+                                                                .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        12),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        12)),
+                                                            color: Colors.white
+                                                                .withOpacity(
+                                                                    0.8)),
+                                                        child: const Center(
+                                                          child: Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            'Dépôt GitHub actuellement en construction',
+                                                            style: TextStyle(
+                                                              letterSpacing: 2,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: 22,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -1268,7 +1373,7 @@ class HomeState extends State<Home> {
                                               fontWeight: FontWeight.w600,
                                               letterSpacing: 3)),
                                     ),
-                                    const Spacer()
+                                    const Spacer(),
                                   ],
                                 )),
                           ),
@@ -1300,27 +1405,199 @@ class HomeState extends State<Home> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Container(
-                              height: (width < 1720) ? 325 : 370,
-                              width: MediaQuery.of(context).size.width / 3.5,
-                              decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 255, 255, 255),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        blurStyle: BlurStyle.solid,
-                                        blurRadius: 8,
-                                        color: Colors.grey)
-                                  ],
-                                  borderRadius: BorderRadius.circular(6)),
-                              child: Image.asset(
-                                'assets/images/Responsive.png',
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                          ),
+                          MouseRegion(
+                            onEnter: (_) =>
+                                setState(() => _isHoveredResp = true),
+                            onExit: (_) =>
+                                setState(() => _isHoveredResp = false),
+                            child: _isHoveredResp
+                                ? GestureDetector(
+                                    onTap: () {
+                                      print('TAP');
+                                      Utilities().urlLaunch(
+                                          'https://github.com/HarisonFranck/TeamTech.git');
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Container(
+                                          height: (width < 1720) ? 325 : 370,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              3.5,
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  255, 255, 255, 255),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                    blurStyle: BlurStyle.solid,
+                                                    blurRadius: 8,
+                                                    color: Colors.grey)
+                                              ],
+                                              borderRadius:
+                                                  BorderRadius.circular(6)),
+                                          child: Stack(
+                                            children: [
+                                              Image.asset(
+                                                'assets/images/tree.png',
+                                                fit: BoxFit.fitWidth,
+                                              ),
+                                              Container(
+                                                height: 350,
+                                                decoration: BoxDecoration(
+                                                    color: const Color.fromARGB(
+                                                            255, 233, 228, 228)
+                                                        .withOpacity(0.6),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6),
+                                                    border: Border.all(
+                                                        width: 1,
+                                                        color: Colors.white)),
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3.5,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 20, right: 20),
+                                                  child: Column(
+                                                    children: [
+                                                      const Spacer(),
+                                                      const Text(
+                                                        'TechTeam',
+                                                        //'Application mobile de prise de rendez-vous',
+                                                        softWrap: true,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: 40,
+                                                            shadows: [
+                                                              Shadow(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          177,
+                                                                          176,
+                                                                          176),
+                                                                  blurRadius: 2)
+                                                            ],
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    27,
+                                                                    78,
+                                                                    102),
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            letterSpacing: 3),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 30,
+                                                      ),
+                                                      const Text(
+                                                        'Application web de gestion des employés',
+                                                        softWrap: true,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            shadows: [
+                                                              Shadow(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          177,
+                                                                          176,
+                                                                          176),
+                                                                  blurRadius: 2)
+                                                            ],
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    27,
+                                                                    78,
+                                                                    102),
+                                                            fontSize: 30,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            letterSpacing: 3),
+                                                      ),
+                                                      const Spacer(),
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 10,
+                                                                right: 10,
+                                                                top: 10),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius: const BorderRadius
+                                                                .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        12),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        12)),
+                                                            color: Colors.white
+                                                                .withOpacity(
+                                                                    0.8)),
+                                                        child: const Center(
+                                                          child: Text(
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            'Cliquez ici pour accéder au dépôt GitHub',
+                                                            style: TextStyle(
+                                                              letterSpacing: 2,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: 22,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          )),
+                                    ),
+                                  )
+                                : GestureDetector(
+                                    onTap: () {
+                                      print('TAP');
+                                      Utilities().urlLaunch(
+                                          'https://github.com/HarisonFranck/TeamTech.git');
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Container(
+                                        height: (width < 1720) ? 325 : 370,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3.5,
+                                        decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                                255, 255, 255, 255),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  blurStyle: BlurStyle.solid,
+                                                  blurRadius: 8,
+                                                  color: Colors.grey)
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(6)),
+                                        child: Image.asset(
+                                          'assets/images/Responsive.png',
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                          )
                         ],
                       ),
                     ],
@@ -1328,7 +1605,7 @@ class HomeState extends State<Home> {
                 )),
           ),
           Container(
-            padding: EdgeInsets.only(top: 20, left: 20, bottom: 20),
+            padding: const EdgeInsets.only(top: 20, left: 20, bottom: 20),
             margin: const EdgeInsets.only(
                 top: 50, left: 100, right: 100, bottom: 20),
             height: 300, // Remplacez cela par votre propre contenu
@@ -1381,7 +1658,8 @@ class HomeState extends State<Home> {
                                         fontWeight: FontWeight.w700,
                                         fontSize: 18,
                                         color: isBright
-                                            ? Color.fromARGB(255, 38, 94, 131)
+                                            ? const Color.fromARGB(
+                                                255, 38, 94, 131)
                                             : Colors.white,
                                         letterSpacing: 4),
                                   ),
@@ -1410,7 +1688,7 @@ class HomeState extends State<Home> {
                               height: 40,
                               child: Row(
                                 children: [
-                                  SizedBox(width: 15),
+                                  const SizedBox(width: 15),
                                   Image.asset(
                                     'assets/images/gmail.png',
                                     width: 40,
@@ -1428,7 +1706,8 @@ class HomeState extends State<Home> {
                                         fontWeight: FontWeight.w700,
                                         fontSize: 18,
                                         color: isBright
-                                            ? Color.fromARGB(255, 39, 114, 175)
+                                            ? const Color.fromARGB(
+                                                255, 39, 114, 175)
                                             : Colors.white,
                                         letterSpacing: 4),
                                   ),
@@ -1465,7 +1744,7 @@ class HomeState extends State<Home> {
                             width: 300,
                             child: Row(
                               children: [
-                                SizedBox(width: 15),
+                                const SizedBox(width: 15),
                                 Image.asset(
                                   'assets/images/whatsapp.png',
                                   width: 40,
@@ -1481,7 +1760,8 @@ class HomeState extends State<Home> {
                                       fontWeight: FontWeight.w700,
                                       fontSize: 18,
                                       color: isBright
-                                          ? Color.fromARGB(255, 39, 114, 175)
+                                          ? const Color.fromARGB(
+                                              255, 39, 114, 175)
                                           : Colors.white,
                                       letterSpacing: 4),
                                 ),
@@ -1509,7 +1789,8 @@ class HomeState extends State<Home> {
                                       fontWeight: FontWeight.w700,
                                       fontSize: 18,
                                       color: isBright
-                                          ? Color.fromARGB(255, 43, 43, 43)
+                                          ? const Color.fromARGB(
+                                              255, 43, 43, 43)
                                           : Colors.white,
                                       letterSpacing: 4),
                                 ),

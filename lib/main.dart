@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: L10n.all,
       locale: const Locale('en'),
       debugShowCheckedModeBanner: false,
-      title: 'My portfolio',
+      title: 'Mauriat\'s Portfolio',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

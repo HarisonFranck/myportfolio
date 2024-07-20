@@ -17,4 +17,13 @@ class Utilities {
       throw 'Impossible d\'ouvrir $urlString';
     }
   }
+
+  void urlLaunch(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('MISY ERREUR EMAIL ENVOIE');
+      throw 'Impossible d\'ouvrir $url';
+    }
+  }
 }
