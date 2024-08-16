@@ -413,7 +413,7 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             ),
                             onPressed: () async {
                               window.open(
-                                  'https://drive.google.com/file/d/1vTBPew_CeugyIWHj_N7N1uVj-nimVmXK/view?usp=sharing',
+                                  'https://drive.google.com/file/d/1Y5F-1giICrbQg3TEEDzXIBFQDmBKbKU7/view?usp=sharing',
                                   '_blank');
                               window.console;
                             },
@@ -1100,245 +1100,272 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                 onExit: (_) =>
                                     setState(() => _isHoveredMed = false),
                                 child: _isHoveredMed
-                                    ? Container(
-                                        height: (width < 1720) ? 325 : 370,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                3.5,
-                                        decoration: BoxDecoration(
-                                            color: const Color.fromARGB(
-                                                255, 207, 207, 207),
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                  blurStyle: BlurStyle.solid,
-                                                  blurRadius: 8,
-                                                  color: Colors.grey)
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(6)),
-                                        child: Stack(
-                                            alignment: Alignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: 280,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Image.asset(
-                                                      'assets/images/P1.png',
-                                                      fit: BoxFit.cover,
-                                                      width: 120,
-                                                    ),
-                                                    Image.asset(
-                                                      'assets/images/P2.png',
-                                                      fit: BoxFit.cover,
-                                                      width: 120,
-                                                    ),
-                                                    if (width > 1260) ...[
-                                                      Image.asset(
-                                                        'assets/images/P3.png',
-                                                        fit: BoxFit.cover,
-                                                        width: 120,
-                                                      ),
-                                                    ],
-                                                    if (width > 1745) ...[
-                                                      Image.asset(
-                                                        'assets/images/P4.png',
-                                                        fit: BoxFit.cover,
-                                                        width: 120,
-                                                      ),
-                                                    ]
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                height: 350,
-                                                decoration: BoxDecoration(
-                                                    color: const Color.fromARGB(
-                                                            255, 233, 228, 228)
-                                                        .withOpacity(0.6),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            6),
-                                                    border: Border.all(
-                                                        width: 1,
-                                                        color: Colors.white)),
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    3.6,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 20, right: 20),
-                                                  child: Column(
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          Utilities().urlLaunch(
+                                              'https://github.com/HarisonFranck/Med-Scheduler-Front.git');
+                                        },
+                                        child: Container(
+                                          height: (width < 1720) ? 325 : 370,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              3.5,
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  255, 207, 207, 207),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                    blurStyle: BlurStyle.solid,
+                                                    blurRadius: 8,
+                                                    color: Colors.grey)
+                                              ],
+                                              borderRadius:
+                                                  BorderRadius.circular(6)),
+                                          child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  height: 280,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
                                                     children: [
-                                                      const Spacer(),
-                                                      const Text(
-                                                        'Med Scheduler',
-                                                        //'Application mobile de prise de rendez-vous',
-                                                        softWrap: true,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 40,
-                                                            shadows: [
-                                                              Shadow(
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          177,
-                                                                          176,
-                                                                          176),
-                                                                  blurRadius: 2)
-                                                            ],
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    27,
-                                                                    78,
-                                                                    102),
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            letterSpacing: 3),
+                                                      Image.asset(
+                                                        'assets/images/P1.png',
+                                                        fit: BoxFit.cover,
+                                                        width: 120,
                                                       ),
-                                                      const SizedBox(
-                                                        height: 30,
+                                                      Image.asset(
+                                                        'assets/images/P2.png',
+                                                        fit: BoxFit.cover,
+                                                        width: 120,
                                                       ),
-                                                      const Text(
-                                                        'Application mobile de prise de rendez-vous',
-                                                        softWrap: true,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            shadows: [
-                                                              Shadow(
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          177,
-                                                                          176,
-                                                                          176),
-                                                                  blurRadius: 2)
-                                                            ],
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    27,
-                                                                    78,
-                                                                    102),
-                                                            fontSize: 30,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            letterSpacing: 3),
-                                                      ),
-                                                      const Spacer(),
-                                                      Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                left: 10,
-                                                                right: 10,
-                                                                top: 10),
-                                                        decoration: BoxDecoration(
-                                                            borderRadius: const BorderRadius
-                                                                .only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        12),
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        12)),
-                                                            color: Colors.white
-                                                                .withOpacity(
-                                                                    0.8)),
-                                                        child: const Center(
-                                                          child: Text(
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            'Dépôt GitHub actuellement en construction',
-                                                            style: TextStyle(
-                                                              letterSpacing: 2,
+                                                      if (width > 1260) ...[
+                                                        Image.asset(
+                                                          'assets/images/P3.png',
+                                                          fit: BoxFit.cover,
+                                                          width: 120,
+                                                        ),
+                                                      ],
+                                                      if (width > 1745) ...[
+                                                        Image.asset(
+                                                          'assets/images/P4.png',
+                                                          fit: BoxFit.cover,
+                                                          width: 120,
+                                                        ),
+                                                      ]
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: 350,
+                                                  decoration: BoxDecoration(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                                  255,
+                                                                  233,
+                                                                  228,
+                                                                  228)
+                                                              .withOpacity(0.6),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6),
+                                                      border: Border.all(
+                                                          width: 1,
+                                                          color: Colors.white)),
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      3.6,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20,
+                                                            right: 20),
+                                                    child: Column(
+                                                      children: [
+                                                        const Spacer(),
+                                                        const Text(
+                                                          'Med Scheduler',
+                                                          //'Application mobile de prise de rendez-vous',
+                                                          softWrap: true,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 40,
+                                                              shadows: [
+                                                                Shadow(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            177,
+                                                                            176,
+                                                                            176),
+                                                                    blurRadius:
+                                                                        2)
+                                                              ],
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      27,
+                                                                      78,
+                                                                      102),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              letterSpacing: 3),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 30,
+                                                        ),
+                                                        const Text(
+                                                          'Application mobile de prise de rendez-vous',
+                                                          softWrap: true,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              shadows: [
+                                                                Shadow(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            177,
+                                                                            176,
+                                                                            176),
+                                                                    blurRadius:
+                                                                        2)
+                                                              ],
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      27,
+                                                                      78,
+                                                                      102),
+                                                              fontSize: 30,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w600,
-                                                              fontSize: 22,
+                                                              letterSpacing: 3),
+                                                        ),
+                                                        const Spacer(),
+                                                        Container(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  left: 10,
+                                                                  right: 10,
+                                                                  top: 10),
+                                                          decoration: BoxDecoration(
+                                                              borderRadius: const BorderRadius
+                                                                  .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          12),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          12)),
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                      0.8)),
+                                                          child: const Center(
+                                                            child: Text(
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              'Cliquez ici pour accéder au dépôt GitHub',
+                                                              style: TextStyle(
+                                                                letterSpacing:
+                                                                    2,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: 22,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                            ]),
+                                                )
+                                              ]),
+                                        ),
                                       )
-                                    : Container(
-                                        height: (width < 1720) ? 325 : 370,
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                3.5,
-                                        decoration: BoxDecoration(
-                                            color: const Color.fromARGB(
-                                                255, 255, 255, 255),
-                                            boxShadow: const [
-                                              BoxShadow(
-                                                  blurStyle: BlurStyle.solid,
-                                                  blurRadius: 8,
-                                                  color: Colors.grey)
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(6)),
-                                        child: Column(children: [
-                                          SizedBox(
-                                            height: 280,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/P1.png',
-                                                  fit: BoxFit.cover,
-                                                  width: 120,
-                                                ),
-                                                Image.asset(
-                                                  'assets/images/P2.png',
-                                                  fit: BoxFit.cover,
-                                                  width: 120,
-                                                ),
-                                                if (width > 1260) ...[
-                                                  Image.asset(
-                                                    'assets/images/P3.png',
-                                                    fit: BoxFit.cover,
-                                                    width: 120,
-                                                  ),
-                                                ],
-                                                if (width > 1745) ...[
-                                                  Image.asset(
-                                                    'assets/images/P4.png',
-                                                    fit: BoxFit.cover,
-                                                    width: 120,
-                                                  ),
-                                                ]
+                                    : GestureDetector(
+                                        onTap: () {
+                                          Utilities().urlLaunch(
+                                              'https://github.com/HarisonFranck/Med-Scheduler-Front.git');
+                                        },
+                                        child: Container(
+                                          height: (width < 1720) ? 325 : 370,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              3.5,
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  255, 255, 255, 255),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                    blurStyle: BlurStyle.solid,
+                                                    blurRadius: 8,
+                                                    color: Colors.grey)
                                               ],
+                                              borderRadius:
+                                                  BorderRadius.circular(6)),
+                                          child: Column(children: [
+                                            SizedBox(
+                                              height: 280,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Image.asset(
+                                                    'assets/images/P1.png',
+                                                    fit: BoxFit.cover,
+                                                    width: 120,
+                                                  ),
+                                                  Image.asset(
+                                                    'assets/images/P2.png',
+                                                    fit: BoxFit.cover,
+                                                    width: 120,
+                                                  ),
+                                                  if (width > 1260) ...[
+                                                    Image.asset(
+                                                      'assets/images/P3.png',
+                                                      fit: BoxFit.cover,
+                                                      width: 120,
+                                                    ),
+                                                  ],
+                                                  if (width > 1745) ...[
+                                                    Image.asset(
+                                                      'assets/images/P4.png',
+                                                      fit: BoxFit.cover,
+                                                      width: 120,
+                                                    ),
+                                                  ]
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          const Spacer(),
-                                          const Center(
-                                            child: Text(
-                                              'Med Scheduler',
-                                              //'Application mobile de prise de rendez-vous',
-                                              softWrap: true,
-                                              style: TextStyle(
-                                                  fontSize: 22,
-                                                  fontWeight: FontWeight.w600,
-                                                  letterSpacing: 3),
+                                            const Spacer(),
+                                            const Center(
+                                              child: Text(
+                                                'Med Scheduler',
+                                                //'Application mobile de prise de rendez-vous',
+                                                softWrap: true,
+                                                style: TextStyle(
+                                                    fontSize: 22,
+                                                    fontWeight: FontWeight.w600,
+                                                    letterSpacing: 3),
+                                              ),
                                             ),
-                                          ),
-                                          const Spacer(),
-                                        ]),
+                                            const Spacer(),
+                                          ]),
+                                        ),
                                       ),
                               )),
                           Padding(

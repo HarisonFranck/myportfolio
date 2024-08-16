@@ -55,8 +55,8 @@ final imagelist = [
       const Spacer(),
       GestureDetector(
         onTap: () {
-          /*Utilities()
-              .urlLaunch('https://github.com/HarisonFranck/TeamTech.git');*/
+          Utilities().urlLaunch(
+              'https://github.com/HarisonFranck/Med-Scheduler-Front.git');
         },
         child: Container(
           margin: const EdgeInsets.only(left: 10, right: 10),
@@ -68,7 +68,7 @@ final imagelist = [
           child: const Center(
             child: Text(
               textAlign: TextAlign.center,
-              'Dépôt GitHub actuellement en construction',
+              'Cliquez ici pour accéder au dépôt GitHub',
               style: TextStyle(
                 color: Colors.white,
                 letterSpacing: 2,

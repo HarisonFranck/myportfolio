@@ -233,7 +233,7 @@ class HomeMobileState extends State<HomeMobile> {
                   ),
                   onPressed: () async {
                     window.open(
-                        'https://drive.google.com/file/d/1vTBPew_CeugyIWHj_N7N1uVj-nimVmXK/view?usp=sharing',
+                        'https://drive.google.com/file/d/1Y5F-1giICrbQg3TEEDzXIBFQDmBKbKU7/view?usp=sharing',
                         '_blank');
                     window.console;
                   },
