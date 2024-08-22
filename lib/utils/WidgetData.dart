@@ -94,13 +94,13 @@ final imagelist = [
       child: Column(
         children: [
           Image.asset(
-            'assets/images/Swach.png',
+            'assets/images/winedge.png',
             fit: BoxFit.fitWidth,
           ),
           const Spacer(),
           const Align(
             alignment: Alignment.center,
-            child: Text('Maquette avec Adobe XD',
+            child: Text('Application multiplateforme',
                 textAlign: TextAlign.center,
                 softWrap: true,
                 style: TextStyle(
